@@ -1,12 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Carts.css";
 import { deleteData, getCartsData } from "../services/api";
 import { IoTrash } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 function Carts({ cartsData, setCartsData }) {
+  const [loaderCarts, setLoaderCarts] = useState(false);
+
   useEffect(() => {
-    getCartsData()?.then(setCartsData);
+    setLoaderCarts(true);
+    getCartsData()
+      ?.then(setCartsData)
+      .finally(() => {
+        setLoaderCarts(false);
+      });
   }, []);
 
   return (
@@ -16,6 +23,12 @@ function Carts({ cartsData, setCartsData }) {
           <div className="cart-nottokens">
             <img src="/imgs/cart.gif" alt="" />
             <p>Savatchangiz bo'sh, maxsulotlar qo'shing</p>
+          </div>
+        ) : loaderCarts ? (
+          <div className="loader-carts_borders">
+              <div className="loader-carts_loading darkener"></div>
+              <div className="loader-carts_loading darkener"></div>
+              <div className="loader-carts_loading darkener"></div>
           </div>
         ) : (
           cartsData?.map((item, index) => {
