@@ -3,7 +3,7 @@ import "./Search.css";
 import { getSearchData } from "../services/api";
 import Card from "../../components/card/Card";
 
-function Search({ searchProductName, setSearchProductName }) {
+function Search({ searchProductName, setSearchProductName, setCartsData }) {
   const [find, setFind] = useState([]);
   const [findMotion, setFindMotion] = useState(false);
   useEffect(() => {
@@ -39,19 +39,21 @@ function Search({ searchProductName, setSearchProductName }) {
                   <span></span>
                   <span></span>
                   <p>
-                    Afsuski maxsulotlar topilmadi
-                    Iltimos qaytadan harakat qilib ko'ring
+                    Afsuski maxsulotlar topilmadi Iltimos qaytadan harakat qilib
+                    ko'ring
                   </p>
-                  <button onClick={()=>{
-                    setSearchProductName("")
-                  }}>
-                     Tozalash
+                  <button
+                    onClick={() => {
+                      setSearchProductName("");
+                    }}
+                  >
+                    Tozalash
                   </button>
                 </div>
               </div>
             ) : (
               find?.map((item) => {
-                return <Card key={item?.id} item={item} />;
+                return <Card key={item?.id} item={item} setCartsData={setCartsData} />;
               })
             )}
           </div>

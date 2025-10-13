@@ -14,7 +14,13 @@ function Footer() {
             <h1>The Future Is Yours</h1>
             <div className="social-getby">
               <NavLink to={"/aboutus"}>Biz haqimizda</NavLink>
-              <p>Yangiliklar</p>
+              <p
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                Yangiliklar
+              </p>
             </div>
           </div>
           <div className="border-social">
@@ -22,7 +28,7 @@ function Footer() {
               <p>Ijtimoiy tarmoqlar</p>
               <p className="social">
                 <a
-                  href="https://www.instagram.com/abdumajidov200506"
+                  href="https://www.instagram.com/primetechuz?igsh=NncwZjA1amFoeXd4"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -43,9 +49,9 @@ function Footer() {
             <div className="social-getby">
               <p>Murojaat uchun</p>
               <p className="social">
-                <a href="tel:+998901234567">
+                <a href="tel:+998912830912">
                   <BsFillTelephoneFill />
-                  +998901234567
+                  +998912830912
                 </a>
               </p>
               <p className="social">

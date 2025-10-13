@@ -159,7 +159,7 @@ export const getUserData = () => {
     });
 };
 
-export const getCartId = (id) => {
+export const getCartId = (id, setCartsData) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${getToken()}`);
@@ -178,17 +178,21 @@ export const getCartId = (id) => {
   return fetch(`${baseUrl}/cart-add/`, requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
-      if (result) {
-        toast.success("Muvofaqqiyatli qo'shildi");
-      }
+      toast.success("Maxsulot qo'shildi");
+      getCartsData()?.then((data) => {
+        setCartsData(data);
+      });
+      return result;
     })
     .catch((error) => console.error(error));
 };
 
-export const getCartsData = () => {
+export const getCartsData = async () => {
+  const token = getToken();
+  if (!token) return []; // foydalanuvchi login qilmagan
+
   const myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${getToken()}`);
+  myHeaders.append("Authorization", `Bearer ${token}`);
 
   const requestOptions = {
     method: "GET",
@@ -196,9 +200,36 @@ export const getCartsData = () => {
     redirect: "follow",
   };
 
-  return fetch(`${baseUrl}/carts/`, requestOptions)
-    .then((response) => response.json())
+  try {
+    const response = await fetch(`${baseUrl}/carts/`, requestOptions);
+
+    if (response.status === 401) return [];
+
+    const data = await response.json();
+    return Array.isArray(data) ? data : [];
+  } catch (err) {
+    console.error("getCartsData error:", err);
+    return [];
+  }
+};
+
+export const deleteData = (id, setCartsData) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${getToken()}`);
+
+  const requestOptions = {
+    method: "DELETE",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  return fetch(`${baseUrl}/cart/${id}/delete/`, requestOptions)
+    .then((response) => response.text())
     .then((result) => {
+      toast.success("Maxsulot o'chirildi");
+      getCartsData()?.then((data) => {
+        setCartsData(data);
+      });
       return result;
     })
     .catch((error) => console.error(error));

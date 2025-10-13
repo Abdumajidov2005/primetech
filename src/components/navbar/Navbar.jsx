@@ -205,7 +205,7 @@ function Navbar({
               <FaChevronLeft />
             </p>
             <input
-              onInput={(e) => {
+              onChange={(e) => {
                 setSearchProductName(e.target.value);
               }}
               type="text"

@@ -5,7 +5,7 @@ import { getFilterCategoryData } from "../services/api";
 import { Link, useParams } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
-function Categorys() {
+function Categorys({setCartsData}) {
   const { id } = useParams();
   const [categoryFilter, setCategoryFilter] = useState(null);
   const [loaderCateg, setLoaderCateg] = useState(false);
@@ -38,7 +38,7 @@ function Categorys() {
               </div>
             ) : (
               categoryFilter?.map((item) => {
-                return <Card key={item?.id} item={item} />;
+                return <Card key={item?.id} item={item} setCartsData={setCartsData} />;
               })
             )}
           </div>

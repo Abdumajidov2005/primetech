@@ -154,7 +154,7 @@
   border-radius: 50%;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 780px) {
   .hero-skeleton_border {
     height: 200px;
   }

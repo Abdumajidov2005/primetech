@@ -1,5 +1,6 @@
 import React from "react";
 import "./Error.css";
+import { Link } from "react-router-dom";
 
 function Error() {
   return (
@@ -13,9 +14,9 @@ function Error() {
             <h1>4</h1>
           </div>
           <p>Sahifa topilmadi iltimos qayta urinib ko'ring</p>
-          <button>
+          <Link to={"/"}>
               Asosiy sahifaga qaytish
-          </button>
+          </Link>
            </div>
         </div>
       </div>

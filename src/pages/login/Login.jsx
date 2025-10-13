@@ -4,8 +4,9 @@ import { baseUrl } from "../services/config";
 import { getToken, setToken } from "../services/token";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { getCartsData } from "../services/api";
 
-function Login({ setUserToken }) {
+function Login({ setUserToken , setCartsData}) {
   const navigate = useNavigate();
   const [loginLoad, setLoginLoad] = useState(false);
   const [username1, setUsername1] = useState("");
@@ -35,6 +36,9 @@ function Login({ setUserToken }) {
           setToken(result?.access);
           setUserToken(getToken());
           toast.success("Muvofaqqiyatli kiridingiz");
+          getCartsData()?.then((data) => {
+            setCartsData(data);
+          });
           navigate("/");
         } else if (Array.isArray(result?.password)) {
           toast.error(result.password[0]);
@@ -46,8 +50,11 @@ function Login({ setUserToken }) {
           toast.error("Username xato");
         } else if (Array.isArray(result?.password1) != password1) {
           toast.error("Parol xato");
-        }else if(Array.isArray(result?.username) != username1 && Array.isArray(result?.password1) != password1){
-          toast.error("Username va parol xato")
+        } else if (
+          Array.isArray(result?.username) != username1 &&
+          Array.isArray(result?.password1) != password1
+        ) {
+          toast.error("Username va parol xato");
         } else {
           toast.error("Xatolik bor");
         }
@@ -60,7 +67,7 @@ function Login({ setUserToken }) {
 
   return (
     <>
-      <div className={`loaderss ${loginLoad ? "load-animation":""}`}>
+      <div className={`loaderss ${loginLoad ? "load-animation" : ""}`}>
         <span></span>
       </div>
       <div className="sign-up login">
@@ -78,13 +85,13 @@ function Login({ setUserToken }) {
             <h1>Kirish</h1>
 
             <div className="sign-information_title">
-              <label htmlFor="">Profilingiz:</label>
+              <label htmlFor="">Username:</label>
               <input
                 onInput={(e) => {
                   setUsername1(e.target.value);
                 }}
                 type="text"
-                placeholder="Profil"
+                placeholder="Username"
               />
             </div>
             <div className="sign-information_title">

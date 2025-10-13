@@ -24,7 +24,7 @@
   margin: 0 auto;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 780px) {
   .container {
     max-width: 100%;
     padding-left: 8px !important;
@@ -62,7 +62,7 @@ input {
   outline: none;
 }
 
-.box-borders{
+.box-borders {
   width: 100%;
   display: flex;
   align-items: center;

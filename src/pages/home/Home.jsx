@@ -5,7 +5,7 @@ import Hero from "../hero/Hero";
 import { getCategoyData, getProductData } from "../services/api";
 import Card from "../../components/card/Card";
 
-function Home({ category, setCategory, data, setData }) {
+function Home({ category, setCategory, data, setData ,setCartsData }) {
   const [categoryMotion, setCategoryMotion] = useState(false);
   const [dataMotion, setDataMotion] = useState(false);
 
@@ -72,7 +72,13 @@ function Home({ category, setCategory, data, setData }) {
                 </div>
               ) : (
                 data?.map((item) => {
-                  return <Card key={item?.id} item={item} />;
+                  return (
+                    <Card
+                      key={item?.id}
+                      item={item}
+                      setCartsData={setCartsData}
+                    />
+                  );
                 })
               )}
             </div>

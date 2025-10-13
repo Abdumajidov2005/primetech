@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { getToken } from "../../pages/services/token";
 import { baseUrl } from "../../pages/services/config";
 import { Link, useNavigate } from "react-router-dom";
 import { IoCart } from "react-icons/io5";
-import { getCartId, getCartsData } from "../../pages/services/api";
+import { getCartId } from "../../pages/services/api";
 
-function Card({ item }) {
-  const navigate = useNavigate();
-
-  const [cartIds, setCartIds] = useState(null);
-
-  useEffect(() => {
-    getCartId()?.then(setCartIds);
-  }, []);
+function Card({ item, setCartsData }) {
+ 
+  const navigate = useNavigate()
 
   return (
     <>
@@ -39,7 +34,11 @@ function Card({ item }) {
               <div
                 onClick={(e) => {
                   e.preventDefault();
-                  getCartsData(item?.id);
+                  if(getToken()){
+                  getCartId(item?.id, setCartsData);
+                  }else{
+                     navigate("/ro'yxatdan o'tish")
+                  }
                 }}
                 className="buyBtn"
               >

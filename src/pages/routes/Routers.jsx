@@ -23,7 +23,7 @@ function Routers() {
   const [userToken, setUserToken] = useState(getToken());
   const [category, setCategory] = useState([]);
   const [searchProductName, setSearchProductName] = useState("");
-  const[cartsData, setCartsData] = useState(null)
+  const [cartsData, setCartsData] = useState(null);
 
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -34,9 +34,9 @@ function Routers() {
     localStorage.setItem("theme", JSON.stringify(theme));
   }, [theme]);
 
-  useEffect(()=>{
-    getCartsData()?.then(setCartsData)
-  },[])
+  useEffect(() => {
+    getCartsData()?.then(setCartsData);
+  }, []);
 
   return (
     <div className={`routermode ${theme ? "dark" : ""}`}>
@@ -55,21 +55,38 @@ function Routers() {
         <Routes>
           <Route
             path="/"
-            element={<Home category={category} setCategory={setCategory} data={data} setData={setData}/>}
+            element={
+              <Home
+                category={category}
+                setCategory={setCategory}
+                data={data}
+                setData={setData}
+                setCartsData={setCartsData}
+              />
+            }
           />
-          <Route path="/categoryFilter/:id" element={<Categorys />} />
+          <Route
+            path="/categoryFilter/:id"
+            element={<Categorys setCartsData={setCartsData} />}
+          />
           <Route path="/productDetail/:id" element={<ProductDetail />} />
           <Route
             path="/annocumentDetails/:id"
             element={<AnnoucimentDetails />}
           />
-          <Route path="/carts" element={<Carts cartsData={cartsData} setCartsData={setCartsData}/>} />
+          <Route
+            path="/carts"
+            element={
+              <Carts cartsData={cartsData} setCartsData={setCartsData} />
+            }
+          />
           <Route
             path="/searching"
             element={
               <Search
                 searchProductName={searchProductName}
                 setSearchProductName={setSearchProductName}
+                setCartsData={setCartsData}
               />
             }
           />
@@ -77,7 +94,9 @@ function Routers() {
           <Route path="/ro'yxatdan o'tish" element={<SignUp />} />
           <Route
             path="kirish"
-            element={<Login setUserToken={setUserToken} />}
+            element={
+              <Login setUserToken={setUserToken} setCartsData={setCartsData} />
+            }
           />
           <Route path="aboutus" element={<Abouts />} />
           <Route path="*" element={<Error />} />
