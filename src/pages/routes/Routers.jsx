@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../home/Home";
 import Navbar from "../../components/navbar/Navbar";
-import ProductDetail from "../productDetail/ProductDetail";
 import Footer from "../footer/Footer";
 import SignUp from "../signup/SignUp";
 import Login from "../login/Login";
@@ -17,6 +16,7 @@ import AccountEdit from "../accountEdit/AccountEdit";
 import AnnoucimentDetails from "../annoucimentDetails/AnnoucimentDetails";
 import Carts from "../cart/Carts";
 import { getCartsData } from "../services/api";
+import ProductDetail from "../productDetail/ProductDetail";
 
 function Routers() {
   const [data, setData] = useState([]);
@@ -69,7 +69,7 @@ function Routers() {
             path="/categoryFilter/:id"
             element={<Categorys setCartsData={setCartsData} />}
           />
-          <Route path="/productDetail/:id" element={<ProductDetail />} />
+          <Route path="/productDetail/:id" element={<ProductDetail setCartsData={setCartsData} />} />
           <Route
             path="/annocumentDetails/:id"
             element={<AnnoucimentDetails />}

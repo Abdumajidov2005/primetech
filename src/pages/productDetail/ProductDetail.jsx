@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { getToken } from "../services/token";
 import "./ProductDetail.css";
-import { Link, useParams } from "react-router-dom";
-import { getProductDetail } from "../services/api";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { getCartId, getCartsData, getProductDetail } from "../services/api";
+import { IoCart } from "react-icons/io5";
 
-function ProductDetail() {
+function ProductDetail({setCartsData}) {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [selectDetail, setSelectDetail] = useState(null);
   const [selectImg, setSelectImg] = useState("");
   const [detailsLoaders, setDetailsLoaders] = useState(false);
@@ -17,6 +19,9 @@ function ProductDetail() {
       .finally(() => {
         setDetailsLoaders(false);
       });
+    getCartsData()?.then((data) => {
+      setCartsData(data);
+    });
   }, [id]);
 
   return (
@@ -120,6 +125,18 @@ function ProductDetail() {
                   >
                     sotib olish
                   </a>
+                  <div
+                    onClick={() => {
+                      if (getToken()) {
+                        getCartId(selectDetail?.id, setCartsData);
+                      } else {
+                        navigate("/ro'yxatdan o'tish");
+                      }
+                    }}
+                    className="buyBtn1"
+                  >
+                    <IoCart />
+                  </div>
                 </div>
               </div>
             </div>
