@@ -57,7 +57,7 @@ function Card({ item, setCartsData }) {
             rel="noopener noreferrer"
             className="btn"
           >
-            Sotib olish
+            Xarid qilish
           </a>
         </p>
       </div>
